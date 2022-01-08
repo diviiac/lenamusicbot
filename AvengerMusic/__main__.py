@@ -18,7 +18,7 @@ from AvengerMusic import (ASS_CLI_1, ASS_CLI_2, ASS_CLI_3, ASS_CLI_4, ASS_CLI_5,
                    ASSNAME3, ASSNAME4, ASSNAME5, BOT_ID, BOT_NAME, app)
 
 
-from AvengerMusic.Core.PyTgCalls.AvengerMusic import (pytgcalls1, pytgcalls2, pytgcalls3,
+from AvengerMusic.Core.PyTgCalls.Avenger import (pytgcalls1, pytgcalls2, pytgcalls3,
                                         pytgcalls4, pytgcalls5)
 from AvengerMusic.Database import get_active_chats, get_sudoers, remove_active_chat, get_active_video_chats, remove_active_video_chat, is_on_off
 from AvengerMusic.Inline import private_panel
