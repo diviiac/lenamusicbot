@@ -15,7 +15,7 @@ from AvengerMusic.Core.PyTgCalls.Downloader import download
 from AvengerMusic.Database import (get_active_video_chats, get_video_limit,
                             is_active_video_chat, is_on_off)
 from AvengerMusic.Decorators.assistant import AssistantAdd
-from Yukki.Decorators.checker import checker
+from AvengerMusic.Decorators.checker import checker
 from AvengerMusic.Decorators.permission import PermissionCheck
 from AvengerMusic.Inline import (choose_markup, livestream_markup, playlist_markup,
                           search_markup, search_markup2, stream_quality_markup,
