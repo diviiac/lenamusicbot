@@ -232,9 +232,9 @@ async def initiate_bot():
             else:
                    origin = repo.create_remote("origin", UPSTREAM_REPO)
             origin.fetch()
-            repo.create_head(UPSTREAM_BRANCH, origin.refs.master)
-            repo.heads.master.set_tracking_branch(origin.refs.master)
-            repo.heads.master.checkout(True)
+            repo.create_head(UPSTREAM_BRANCH, origin.refs.main)
+            repo.heads.main.set_tracking_branch(origin.refs.main)
+            repo.heads.main.checkout(True)
             try:
                 repo.create_remote("origin", UPSTREAM_REPO)
             except BaseException:
