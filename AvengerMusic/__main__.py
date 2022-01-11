@@ -224,7 +224,7 @@ All commands can be used with: / """
 
 @app.on_message(filters.command("sos") & filters.private)
 async def sos_command(_, message):
-    text, keyboard = await help_parser(message.from_user.mention)
+    text, keyboard = await sos_parser(message.from_user.mention)
     await app.send_message(message.chat.id, text, reply_markup=keyboard)
 
 
@@ -266,8 +266,8 @@ async def begin_command(_, message):
                 sender_name = message.from_user.first_name
                 umention = f"[{sender_name}](tg://user?id={int(sender_id)})"
                 return await LOG_CLIENT.send_message(LOG_GROUP_ID, f"{message.from_user.mention} has just started bot to check <code>SUDOLIST</code>\n\n**USER ID:** {sender_id}\n**USER NAME:** {sender_name}")
-        if name == "help":
-            text, keyboard = await help_parser(message.from_user.mention)
+        if name == "sos":
+            text, keyboard = await sos_parser(message.from_user.mention)
             await message.delete()
             return await app.send_text(
                 message.chat.id,
@@ -338,7 +338,7 @@ async def begin_command(_, message):
 
     
 
-async def help_parser(name, keyboard=None):
+async def sos_parser(name, keyboard=None):
     if not keyboard:
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
     return (
@@ -358,14 +358,14 @@ async def mukesh(_, CallbackQuery):
     await CallbackQuery.message.edit(text, reply_markup=keyboard)
 
 
-@app.on_callback_query(filters.regex(r"help_(.*?)"))
-async def help_button(client, query):
-    home_match = re.match(r"help_home\((.+?)\)", query.data)
-    mod_match = re.match(r"help_module\((.+?)\)", query.data)
-    prev_match = re.match(r"help_prev\((.+?)\)", query.data)
-    next_match = re.match(r"help_next\((.+?)\)", query.data)
-    back_match = re.match(r"help_back", query.data)
-    create_match = re.match(r"help_create", query.data)
+@app.on_callback_query(filters.regex(r"sos_(.*?)"))
+async def sos_button(client, query):
+    home_match = re.match(r"sos_home\((.+?)\)", query.data)
+    mod_match = re.match(r"sos_module\((.+?)\)", query.data)
+    prev_match = re.match(r"sos_prev\((.+?)\)", query.data)
+    next_match = re.match(r"sos_next\((.+?)\)", query.data)
+    back_match = re.match(r"sos_back", query.data)
+    create_match = re.match(r"sos_create", query.data)
     top_text = f"""Hello {query.from_user.first_name},
 Click on the buttons for more information.
 All commands can be used with: /
@@ -382,7 +382,7 @@ All commands can be used with: /
             [
                 [
                     InlineKeyboardButton(
-                        text="↪️ Back", callback_data="help_back"
+                        text="↪️ Back", callback_data="sos_back"
                     ),
                     InlineKeyboardButton(
                         text="🔄 Close", callback_data="close"
@@ -409,7 +409,7 @@ All commands can be used with: /
         await query.message.edit(
             text=top_text,
             reply_markup=InlineKeyboardMarkup(
-                paginate_modules(curr_page - 1, HELPABLE, "help")
+                paginate_modules(curr_page - 1, HELPABLE, "sos")
             ),
             disable_web_page_preview=True,
         )
@@ -419,7 +419,7 @@ All commands can be used with: /
         await query.message.edit(
             text=top_text,
             reply_markup=InlineKeyboardMarkup(
-                paginate_modules(next_page + 1, HELPABLE, "help")
+                paginate_modules(next_page + 1, HELPABLE, "sos")
             ),
             disable_web_page_preview=True,
         )
@@ -428,13 +428,13 @@ All commands can be used with: /
         await query.message.edit(
             text=top_text,
             reply_markup=InlineKeyboardMarkup(
-                paginate_modules(0, HELPABLE, "help")
+                paginate_modules(0, HELPABLE, "sos")
             ),
             disable_web_page_preview=True,
         )
 
     elif create_match:
-        text, keyboard = await help_parser(query)
+        text, keyboard = await sos_parser(query)
         await query.message.edit(
             text=text,
             reply_markup=keyboard,
