@@ -228,8 +228,8 @@ async def help_command(_, message):
     await app.send_message(message.chat.id, text, reply_markup=keyboard)
 
 
-@app.on_message(filters.command("start") & filters.private)
-async def start_command(_, message):
+@app.on_message(filters.command("begin") & filters.private)
+async def begin_command(_, message):
     if len(message.text.split()) > 1:
         name = (message.text.split(None, 1)[1]).lower()
         if name[0] == "s":
